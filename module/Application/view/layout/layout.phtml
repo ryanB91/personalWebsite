@@ -1,0 +1,129 @@
+<?= $this->doctype() ?>
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Ryan Belandres</title>
+        <meta charset="UTF-8">      
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="Ryan Belandres personal website">
+        <meta name="kewords" content="ryan belandres, ryan belandres photography, ryan belandres personal website">
+        <meta name="author" content="Ryan Belandres">
+        <link href="/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Custom CSS -->
+        <link href="/css/style.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+        
+        
+        
+        <script>
+            $(document).ready(function (){
+                $("#click").click(function (){
+                    $('html, body').animate({
+                        scrollTop: $("#nextpage").offset().top
+                    }, 2000);
+                });
+
+                $("#click1").click(function (){
+                    $('html, body').animate({
+                        scrollTop: $("#nextpage").offset().top
+                    }, 2000);
+                });
+        
+                $("#click_up").click(function (){
+                    $('html, body').animate({
+                        scrollTop: $("#click").offset().top
+                    }, 2000);
+                });
+            });
+        </script>
+
+        <script type="text/javascript">
+            var TxtType = function(el, toRotate, period) {
+                this.toRotate = toRotate;
+                this.el = el;
+                this.loopNum = 0;
+                this.period = parseInt(period, 10) || 2000;
+                this.txt = '';
+                this.tick();
+                this.isDeleting = false;
+            };
+
+            TxtType.prototype.tick = function() {
+                var i = this.loopNum % this.toRotate.length;
+                var fullTxt = this.toRotate[i];
+
+                if (this.isDeleting) {
+                this.txt = fullTxt.substring(0, this.txt.length - 1);
+                } else {
+                this.txt = fullTxt.substring(0, this.txt.length + 1);
+                }
+
+                this.el.innerHTML = '<span class="wrap">'+this.txt+'</span>';
+
+                var that = this;
+                var delta = 200 - Math.random() * 100;
+
+                if (this.isDeleting) { delta /= 2; }
+
+                if (!this.isDeleting && this.txt === fullTxt) {
+                delta = this.period;
+                this.isDeleting = true;
+                } else if (this.isDeleting && this.txt === '') {
+                this.isDeleting = false;
+                this.loopNum++;
+                delta = 500;
+                }
+
+                setTimeout(function() {
+                that.tick();
+                }, delta);
+            };
+
+            window.onload = function() {
+                var elements = document.getElementsByClassName('typewrite');
+                for (var i=0; i<elements.length; i++) {
+                    var toRotate = elements[i].getAttribute('data-type');
+                    var period = elements[i].getAttribute('data-period');
+                    if (toRotate) {
+                      new TxtType(elements[i], JSON.parse(toRotate), period);
+                    }
+                }
+            };
+        </script>
+
+
+    </head>
+    
+    <body>
+
+        <?php echo $this->content; ?>
+
+        <footer>
+            <a href="#" id ="click_up"><img src="/img/up_arrow.png"></a>
+            <a href="https://www.instagram.com/ryanbelandres/"><div id="instagram"></div></a>
+            <a href="https://www.facebook.com/RyanBelandresPhotography/"><div id="fb"></div></a>
+            <p>Copyright © 2018 Ryan Belandres | All rights reserved</p> 
+        </footer>
+
+
+        <script>
+                function openNav() {
+                    var w = window.innerWidth;
+                    if(w <= 520){
+                        document.getElementById("mySidenav").style.width = "100%";
+                    }else{
+                        document.getElementById("mySidenav").style.width = "250px";
+                    }
+                }
+
+                function closeNav() {
+                    document.getElementById("mySidenav").style.width = "0";
+                }
+        </script>
+        
+
+</body>
+</html>
